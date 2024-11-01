@@ -29,6 +29,17 @@ struct Node* insert(struct Node* root, int data){
     return root;
 }
 
+// Function to search for an element in the BST
+struct Node* search(struct Node* root, int key) {
+    if (root == NULL || root->data == key) 
+        return root;
+
+    if (key < root->data)
+        return search(root->left, key);
+    else
+        return search(root->right, key);
+}
+
 //Inorder Traversal (Left, Node, Right)
 void inorder(struct Node* root) {
     if (root != NULL) {
@@ -62,7 +73,7 @@ int main() {
     int choice, value;
 
     while (1) {
-        printf("\n1. Insert\n2. Inorder Traversal\n3. Preorder Traversal\n4. Postorder Traversal\n5. Exit\n");
+        printf("\n1. Insert\n2. Inorder Traversal\n3. Preorder Traversal\n4. Postorder Traversal\n5. Search\n6. Exit\n");
         scanf("%d", &choice);
 
         switch (choice) {
@@ -87,11 +98,19 @@ int main() {
                 printf("\n");
                 break;
             case 5:
+                printf("Enter value to search: ");
+                scanf("%d", &value);
+                struct Node* result = search(root, value);
+                if (result != NULL)
+                    printf("Element %d found in the BST.\n", result->data);
+                else
+                    printf("Element %d not found in the BST.\n", value);
+                break;
+            case 6:
                 exit(0);
             default:
                 printf("Invalid choice!\n");
         }
     }
-
     return 0;
 }
